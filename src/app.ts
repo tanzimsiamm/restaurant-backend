@@ -4,6 +4,10 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import 'express-async-errors';
 import config from './config';
+import globalErrorHandler from './middlewares/globalErrorHandler';
+import notFound from './middlewares/notFound';
+import { ProductRoutes } from './modules/product/product.route';
+import { CategoryRoutes } from './modules/category/category.route';
 
 const app: Application = express();
 
@@ -33,8 +37,11 @@ app.get('/', (req: Request, res: Response) => {
 
 // API Routes
 // TODO: Add module routes here
-// app.use('/api/products', productRoutes);
-// app.use('/api/categories', categoryRoutes);
-// app.use('/api/sliders', sliderRoutes);
+app.use('/api/products', ProductRoutes);
+app.use('/api/categories', CategoryRoutes);
+
+// Error Handlers
+app.use(notFound);
+app.use(globalErrorHandler);
 
 export default app;
