@@ -1,7 +1,12 @@
-import dotenv from "dotenv";
-dotenv.config();
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Load environment variables
+dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 export default {
-  port: process.env.PORT,
-  db_url: process.env.DB_URL,
+  node_env: process.env.NODE_ENV || 'development',
+  port: process.env.PORT || 5000,
+  mongodb_uri: process.env.MONGODB_URI,
+  cors_origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
 };
