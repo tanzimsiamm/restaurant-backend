@@ -13,7 +13,6 @@ const categorySchema = new Schema<ICategoryDocument>(
     slug: {
       type: String,
       required: [true, 'Category slug is required'],
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -44,7 +43,7 @@ const categorySchema = new Schema<ICategoryDocument>(
 );
 
 // Index for better query performance
-categorySchema.index({ slug: 1 });
+categorySchema.index({ slug: 1 }, { unique: true });
 categorySchema.index({ isActive: 1 });
 
 const Category = model<ICategoryDocument>('Category', categorySchema);
