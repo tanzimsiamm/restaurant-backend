@@ -6,8 +6,9 @@ import 'express-async-errors';
 import config from './config';
 import globalErrorHandler from './middlewares/globalErrorHandler';
 import notFound from './middlewares/notFound';
-import { ProductRoutes } from './modules/product/product.route';
 import { CategoryRoutes } from './modules/category/category.route';
+import { ProductRoutes } from './modules/product/product.route';
+import { SliderRoutes } from './modules/slider/slider.route';
 
 const app: Application = express();
 
@@ -36,9 +37,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // API Routes
-// TODO: Add module routes here
-app.use('/api/products', ProductRoutes);
 app.use('/api/categories', CategoryRoutes);
+app.use('/api/products', ProductRoutes);
+app.use('/api/sliders', SliderRoutes);
 
 // Error Handlers
 app.use(notFound);
