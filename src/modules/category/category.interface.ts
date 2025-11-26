@@ -5,6 +5,7 @@ export interface ICategory {
   slug: string;
   description?: string;
   image?: string;
+  order: number; 
   isActive: boolean;
   createdAt?: Date;
   updatedAt?: Date;

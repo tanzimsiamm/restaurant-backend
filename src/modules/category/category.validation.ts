@@ -24,6 +24,8 @@ const createCategoryValidationSchema = z.object({
       .trim()
       .optional(),
     image: z.string().url('Invalid image URL').optional(),
+    // Add validation for order
+    order: z.number().min(0, 'Order cannot be negative').optional().default(0),
     isActive: z.boolean().optional().default(true),
   }),
 });
@@ -52,6 +54,8 @@ const updateCategoryValidationSchema = z.object({
       .trim()
       .optional(),
     image: z.string().url('Invalid image URL').optional(),
+    // Add validation for order update
+    order: z.number().min(0).optional(),
     isActive: z.boolean().optional(),
   }),
 });
