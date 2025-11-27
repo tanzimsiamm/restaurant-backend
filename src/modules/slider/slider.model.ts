@@ -24,6 +24,10 @@ const sliderSchema = new Schema<ISliderDocument>(
       required: [true, 'Slider image is required'],
       trim: true,
     },
+    thumbnailImage: {
+      type: String,
+      trim: true,
+    },
     buttonText: {
       type: String,
       trim: true,
@@ -32,6 +36,11 @@ const sliderSchema = new Schema<ISliderDocument>(
     buttonLink: {
       type: String,
       trim: true,
+    },
+    bgColor: {
+      type: String,
+      trim: true,
+      default: '#8B0000',
     },
     order: {
       type: Number,
@@ -46,7 +55,7 @@ const sliderSchema = new Schema<ISliderDocument>(
   },
   {
     timestamps: true,
-    toJSON: {
+     toJSON: {
       virtuals: true,
       transform: function (doc, ret) {
         delete (ret as any).__v;
