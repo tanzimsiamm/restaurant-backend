@@ -11,12 +11,19 @@ const createCategory = async (payload: ICategory) => {
 const getAllCategories = async (query: { isActive?: string }) => {
   const filter: { isActive?: boolean } = {};
 
-  if (query.isActive) {
+  // Default to active categories only if not specified
+  if (query.isActive === undefined) {
+    filter.isActive = true;
+  } else {
     filter.isActive = query.isActive === "true";
   }
 
-  // Changed sorting from createdAt: -1 to order: 1 to match UI tab sequence
+  console.log('🔍 Category Query:', { query, filter });
+  
   const result = await Category.find(filter).sort({ order: 1 });
+  
+  console.log('✅ Categories found:', result.length);
+  
   return result;
 };
 
@@ -30,42 +37,41 @@ const getCategoryById = async (id: string) => {
   return result;
 };
 
-// ... rest of the service files (getCategoryBySlug, updateCategory, deleteCategory) remain unchanged
 const getCategoryBySlug = async (slug: string) => {
-    const result = await Category.findOne({ slug });
-  
-    if (!result) {
-      throw new AppError(StatusCodes.NOT_FOUND, "Category not found");
-    }
-  
-    return result;
-  };
-  
-  const updateCategory = async (id: string, payload: Partial<ICategory>) => {
-    const category = await Category.findById(id);
-  
-    if (!category) {
-      throw new AppError(StatusCodes.NOT_FOUND, "Category not found");
-    }
-  
-    const result = await Category.findByIdAndUpdate(id, payload, {
-      new: true,
-      runValidators: true,
-    });
-  
-    return result;
-  };
-  
-  const deleteCategory = async (id: string) => {
-    const category = await Category.findById(id);
-  
-    if (!category) {
-      throw new AppError(StatusCodes.NOT_FOUND, "Category not found");
-    }
-  
-    const result = await Category.findByIdAndDelete(id);
-    return result;
-  };
+  const result = await Category.findOne({ slug });
+
+  if (!result) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Category not found");
+  }
+
+  return result;
+};
+
+const updateCategory = async (id: string, payload: Partial<ICategory>) => {
+  const category = await Category.findById(id);
+
+  if (!category) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Category not found");
+  }
+
+  const result = await Category.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
+const deleteCategory = async (id: string) => {
+  const category = await Category.findById(id);
+
+  if (!category) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Category not found");
+  }
+
+  const result = await Category.findByIdAndDelete(id);
+  return result;
+};
 
 export const CategoryService = {
   createCategory,

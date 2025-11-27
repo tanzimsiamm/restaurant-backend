@@ -9,6 +9,7 @@ import notFound from './middlewares/notFound';
 import { CategoryRoutes } from './modules/category/category.route';
 import { ProductRoutes } from './modules/product/product.route';
 import { SliderRoutes } from './modules/slider/slider.route';
+import { TeamRoutes } from './modules/team/team.route';
 
 const app: Application = express();
 
@@ -40,6 +41,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/categories', CategoryRoutes);
 app.use('/api/products', ProductRoutes);
 app.use('/api/sliders', SliderRoutes);
+app.use('/api/team', TeamRoutes);
 
 // Error Handlers
 app.use(notFound);
