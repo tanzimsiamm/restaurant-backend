@@ -8,5 +8,7 @@ export default {
   node_env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 5000,
   mongodb_uri: process.env.MONGODB_URI,
-  cors_origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  cors_origin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : ['http://localhost:3000'],
 };

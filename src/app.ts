@@ -16,7 +16,7 @@ const app: Application = express();
 // Middlewares
 app.use(
   cors({
-    origin: config.cors_origin,
+    origin: 'https://restaurant-frontend-iota-two.vercel.app',
     credentials: true,
   }),
 );
